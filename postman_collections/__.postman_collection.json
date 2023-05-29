@@ -1,0 +1,120 @@
+{
+	"info": {
+		"_postman_id": "1f0fadaa-4b78-4d76-a574-43b556515d76",
+		"name": "__",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8782020"
+	},
+	"item": [
+		{
+			"name": "POST /users",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"nric\": \"1232\",\n    \"wallet_address\": \"1234\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get /users",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get /users/:nric",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/:nric",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						":nric"
+					],
+					"variable": [
+						{
+							"key": "nric",
+							"value": "1238"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get /users/decrypt",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"receipt\": \"u9nQPP0ZrVkvJq3DSKEPQmVHoltaPxqo0bhWl+SEjDoLzy9lUqLf2JyIyc1+KhA/uu4czlAIl9Z+lfbAlzDukychU7Kncg3f+ocWMg4S5bVlHvx9Gqxu7zEMZNSz6K5oOCkraLe3s1JonmOjXr3lHA==\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/api/v1/users/decrypt",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"v1",
+						"users",
+						"decrypt"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
