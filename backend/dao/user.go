@@ -38,7 +38,7 @@ func (conn connection) List() []models.User {
 
 func (conn connection) Get(nric string) models.User {
 	var user models.User
-	conn.db.First(&user)
+	conn.db.Where("nric = ?", nric).First(&user)
 
 	return user
 }
