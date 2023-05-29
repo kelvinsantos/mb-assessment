@@ -2,6 +2,8 @@ Asst. Manager – Full Stack Developer – Technical Assessment
 
 # Project Name: MB NFT Marketplace
 
+![alt text](https://github.com/kelvinsantos/mb-assessment/blob/main/sample.png)
+
 # Requirements
 
 ```
