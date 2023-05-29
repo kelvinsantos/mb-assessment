@@ -85,10 +85,14 @@ Asst. Manager – Full Stack Developer – Technical Assessment
     $ make run-local
     ```
 
+Optional: Running tests
+    ```
+    $ make run-test
+    ```
+
 # Frontend Local Setup and Smart Contract Deployment
 
 1. Copy .env.example to .env
-
     ```
     $ cd frontend/
     $ cp .env.example .env
@@ -96,18 +100,31 @@ Asst. Manager – Full Stack Developer – Technical Assessment
     ```
 
 2. Installing project dependencies
-   $ yarn install
+    ```
+    $ yarn install
+    ```
 
 3. Compile the smart contract
-   $ yarn compile-contracts
+    ```
+    $ yarn compile-contracts
+    ```
 
 4. Deploy the smart contract
-   $ source .env && yarn deploy-contracts
+    ```
+    $ source .env && yarn deploy-contracts
+    ```
 
 5. Running the frontend server
+    ```
    // The default port for this would be 8081. To access you can use http://localhost:8081
    // Please check the postman collections for the available endpoints
    $ yarn dev
+   ```
+
+Optional: Running tests
+    ```
+    $ yarn test
+    ```
 
 # References
 
