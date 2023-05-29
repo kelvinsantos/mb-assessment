@@ -1,8 +1,8 @@
 package main
 
 import (
+	"boilerplate/controllers"
 	"boilerplate/database"
-	"boilerplate/handlers"
 
 	"flag"
 	"log"
@@ -53,17 +53,26 @@ func main() {
 	// Create a /api/v1 endpoint
 	v1 := app.Group("/api/v1")
 
-	// Bind handlers
-	v1.Post("/users", handlers.CreateUser)
-	v1.Get("/users", handlers.ListUser)
-	v1.Get("/users/:nric", handlers.GetUser)
-	v1.Post("/users/decrypt", handlers.DecryptReceipt)
+	db, err := database.Connect()
+	if err != nil {
+		panic(err)
+	}
+
+	var userController controllers.IUserController = controllers.NewUserController(db)
+
+	// Bind controllers
+	v1.Post("/users", userController.CreateUser)
+	v1.Get("/users", userController.ListUser)
+	v1.Get("/users/:nric", userController.GetUser)
+	v1.Post("/users/decrypt", userController.DecryptReceipt)
 
 	// Setup static files
 	app.Static("/", "./static/public")
 
+	var errorController controllers.IErrorController = controllers.NewUserController(db)
+
 	// Handle not founds
-	app.Use(handlers.NotFound)
+	app.Use(errorController.NotFound)
 
 	// Listen on port 3000
 	log.Fatal(app.Listen(*port)) // go run app.go -port=:3000
