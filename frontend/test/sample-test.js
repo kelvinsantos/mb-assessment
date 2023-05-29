@@ -1,9 +1,11 @@
+const { ethers } = require("hardhat");
+
 /* test/sample-test.js */
 describe("NFTMarket", function () {
   it("Should create and execute market sales", async function () {
     /* deploy the marketplace */
     const NFTMarketplace = await ethers.getContractFactory("NFTMarketplace")
-    const nftMarketplace = await NFTMarketplace.deploy()
+    const nftMarketplace = await NFTMarketplace.deploy(1684771200, 1687449600, 5);
     await nftMarketplace.deployed()
 
     let listingPrice = await nftMarketplace.getListingPrice()
@@ -12,10 +14,12 @@ describe("NFTMarket", function () {
     const auctionPrice = ethers.utils.parseUnits('1', 'ether')
 
     /* create two tokens */
-    await nftMarketplace.createToken("https://www.mytokenlocation.com", auctionPrice, { value: listingPrice })
-    await nftMarketplace.createToken("https://www.mytokenlocation2.com", auctionPrice, { value: listingPrice })
+    await nftMarketplace.createToken("https://www.mytokenlocation.com", auctionPrice, 'receipt', { value: listingPrice })
+    await nftMarketplace.createToken("https://www.mytokenlocation2.com", auctionPrice, 'receipt', { value: listingPrice })
 
-    const [_, buyerAddress] = await ethers.getSigners()
+    const [owner, buyerAddress] = await ethers.getSigners()
+
+    await nftMarketplace.connect(owner).resellToken(1, auctionPrice, { value: listingPrice })
 
     /* execute sale of token to another user */
     await nftMarketplace.connect(buyerAddress).createMarketSale(1, { value: auctionPrice })

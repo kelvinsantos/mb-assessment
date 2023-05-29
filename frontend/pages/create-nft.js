@@ -35,7 +35,7 @@ export default function CreateItem({ networks }) {
   const [fileUrl, setFileUrl] = useState(null)
   const [showDanger, setShowDanger] = useState(false)
   const [dangerMessage, setDangerMessage] = useState('')
-  const [formInput, updateFormInput] = useState({ nric: '', price: '', name: '', description: '' })
+  const [formInput, updateFormInput] = useState({ nric: '', name: '', description: '' })
   const selectedNetwork = networks.filter(v => v.selected)[0]
   const router = useRouter()
 
@@ -81,8 +81,8 @@ export default function CreateItem({ networks }) {
     }
   }
   async function uploadToIPFS() {
-    const { name, description, price } = formInput
-    if (!nric || !name || !description || !price || !fileUrl) return
+    const { name, description } = formInput
+    if (!name || !description || !fileUrl) return
 
     /* first, upload to IPFS */
     const data = JSON.stringify({
@@ -123,16 +123,16 @@ export default function CreateItem({ networks }) {
       const signer = provider.getSigner()
 
       /* next, create the item */
-      const price = ethers.utils.parseUnits(formInput.price, 'ether')
+      const mintPrice = ethers.utils.parseUnits('1', 'ether')
       const contract = new ethers.Contract(selectedNetwork.contract_address || marketplaceAddress, NFTMarketplace.abi, signer)
 
       let listingPrice = await contract.getListingPrice()
       listingPrice = listingPrice.toString()
 
-      let transaction = await contract.createToken(url, price, user.receipt, { value: listingPrice })
+      let transaction = await contract.createToken(url, mintPrice, user.receipt, { value: listingPrice })
       await transaction.wait()
 
-      router.push('/')
+      router.push('/my-nfts')
     } catch (e) {
       if (e.data) {
         setShowDanger(true);
@@ -172,11 +172,6 @@ export default function CreateItem({ networks }) {
             onChange={e => updateFormInput({ ...formInput, description: e.target.value })}
           />
           <input
-            placeholder="Asset Price in MBT"
-            className="mt-2 border rounded p-4"
-            onChange={e => updateFormInput({ ...formInput, price: e.target.value })}
-          />
-          <input
             type="file"
             name="Asset"
             className="my-4"
@@ -191,7 +186,7 @@ export default function CreateItem({ networks }) {
             <p>{dangerMessage}</p>
           </div>
           <button onClick={listNFTForSale} className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg">
-            Create NFT
+            Mint NFT
           </button>
         </div>
       </div>
