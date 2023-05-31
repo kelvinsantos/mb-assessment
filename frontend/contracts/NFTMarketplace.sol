@@ -83,8 +83,8 @@ contract NFTMarketplace is ERC721URIStorage {
         uint256 price,
         string memory receipt
     ) public payable onlyDuringMintingPeriod returns (uint256) {
-        // require(!hasMinted[msg.sender], "Wallet has already minted a token");
-        // require(totalSupply != maxMintLimit, "Exceeds maximum mint limit");
+        require(!hasMinted[msg.sender], "Wallet has already minted a token");
+        require(totalSupply != maxMintLimit, "Exceeds maximum mint limit");
 
         _tokenIds.increment();
         uint256 newTokenId = _tokenIds.current();
